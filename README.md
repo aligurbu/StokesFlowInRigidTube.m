@@ -1,2 +1,2 @@
 # StokesFlowInRigidTube.m
- Boundary element method analysis of the Stokes flow inside a rigid tube
+ High-order weakly singular boundary element method code is given for analyzing pressure-driven viscous flow in the rigid vessel with varying cross-sections.

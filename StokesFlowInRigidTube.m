@@ -13,6 +13,10 @@ Starttime = tic;
 %% Input the model and parameters for the analysis from Models folder
 Load_ShortMicrocapillary_16El
 
+%% Field points (Gauss quadrature nodes)
+[FieldPts, BasisFn, NormalV, Weights] = ...
+                   FieldProperties(coord, connect, numElem, ...
+                                   numDofPerNode, numNodesPerElem, gx, gw);
 
 %%
 ModelTime = toc(Starttime)

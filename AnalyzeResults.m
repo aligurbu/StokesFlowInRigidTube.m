@@ -20,27 +20,21 @@ fprintf('Sum of forces error in tube: %8.6f%%\n',ForceBalanceError)
 fprintf('Sum of moment error in tube: %8.6f%%\n',MomentBalanceError)
 
 %% Plotting the velocity and traction profiles on the vessel boundary
-%% Settings 
+%% Plot Settings 
 PlotSettings
 
 %% A line along the tube length
 numNodesOnCircumference = 2*16; % for 16 elements around the circimference
 if strcmp(name,'ShortMicrocapillary_16El')
     numNodesAlongTubeLength = 2*16+1; % for 16 element along the length
-    wallnodeArray = reshape(wallnode, numNodesOnCircumference, ...
-                                      numNodesAlongTubeLength);
-    wallnodeOnlyWallLine = wallnodeArray(9,[1 3:numNodesAlongTubeLength 2]);
 elseif strcmp(name,'RefinedConstrictedVessel_16El')
     numNodesAlongTubeLength = 2*48+1; % for 48 element along the length
-    wallnodeArray = reshape(wallnode, numNodesOnCircumference, ...
-                                      numNodesAlongTubeLength);
-    wallnodeOnlyWallLine = wallnodeArray(9,[1 3:numNodesAlongTubeLength 2]);
 elseif strcmp(name,'LongConstrictedVessel_16El')
     numNodesAlongTubeLength = 2*48+1; % for 48 element along the length
-    wallnodeArray = reshape(wallnode, numNodesOnCircumference, ...
-                                      numNodesAlongTubeLength);
-    wallnodeOnlyWallLine = wallnodeArray(9,[1 3:numNodesAlongTubeLength 2]);
 end
+wallnodeArray = reshape(wallnode, numNodesOnCircumference, ...
+                                  numNodesAlongTubeLength);
+wallnodeOnlyWallLine = wallnodeArray(9,[1 3:numNodesAlongTubeLength 2]);
 % % Depict wallnodeOnlyWallLine on vessel
 % figure('Color','white')
 % hold on

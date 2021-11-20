@@ -133,3 +133,30 @@ if verbose_PrintProfiles
     print('NormTractionLine','-dpng','-r0')
 end
 
+%% Patch graph for norm of pressure
+Plot_PatchColorFields(coord, connect, wallnodeOnlyWallLine, ...
+                      coordPatchx, coordPatchy, coordPatchz, ...
+                      NormPressureNodalPatch, ...
+                      MinNormPressureNodalPatch, ...
+                      MaxNormPressureNodalPatch, ...
+                      MarkerSizeind, TransparencyInd)
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'NormPressureProfile';
+if verbose_Profiles
+    print('NormPressureProfile','-dpng','-r0')
+end
+
+%% Line graph for norm of pressure
+Plot_LineFieldsOnVessel(coord, NormPressureNodalArranged, ...
+                               wallnodeOnlyWallLine, ...
+                               MarkerSizeind, LineWidthind, ...
+                               'Pressure, Pa', ...
+                               'A line along the vessel wall ($\mu$m)')
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'NormPresureLine';
+if verbose_Profiles
+    print('NormPresureLine','-dpng','-r0')
+end
+

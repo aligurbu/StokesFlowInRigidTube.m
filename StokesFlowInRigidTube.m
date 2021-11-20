@@ -9,12 +9,32 @@ addpath 'Tests/'
 
 verbose_Plot = false;
 verbose_Patch = false;
+verbose_PrintProfiles = false;
 Starttime = tic;
 
 %% Input the model and parameters for the analysis from Models folder
-Load_ShortMicrocapillary_16El
-% Load_RefinedConstrictedVessel_16El
-% Load_LongConstrictedVessel_16El
+%% Vessel models: Load mesh
+load ShortMicrocapillary_16El.mat
+% load RefinedConstrictedVessel_16El.mat
+% load LongConstrictedVessel_16El.mat
+name = nameVessel;
+
+%% Plotting the geometry of the model
+if verbose_Plot
+    figure('Color','white')
+    Plot_Mesh(coord, connect, 0.25, true, false)
+    axis off
+end
+if verbose_Patch
+    figure('Color','white')
+    Patch_Mesh(coord, connect)
+end
+
+%% Reference parameters
+ReferenceParameters
+
+%% Parameters 
+ParametersForTheAnalysis
 
 %% Field points (Gauss quadrature nodes)
 [FieldPts, BasisFn, NormalV, Weights] = ...
@@ -41,7 +61,5 @@ Telem(:,DirichletElem) = Solution(elemDofNum(:,DirichletElem));
 ModelTime = toc(Starttime)
 
 %% Analyze and post-process the results
-verbose_PrintProfiles = false;
-
 %% Analyze the results 
 AnalyzeResults

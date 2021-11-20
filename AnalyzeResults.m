@@ -18,3 +18,25 @@ fprintf('\nMass balance; \ndifference of inlet and outlet flow: %8.6f micron^3/s
 fprintf('Mass balance error in tube: %8.6f%%\n',MassBalanceError)
 fprintf('Sum of forces error in tube: %8.6f%%\n',ForceBalanceError)
 fprintf('Sum of moment error in tube: %8.6f%%\n',MomentBalanceError)
+
+%% Plotting the velocity and traction profiles on the vessel boundary
+%% Settings 
+PlotSettings
+
+%% Inlet and Outlet velocity profile
+Plot_VectorFields(coord, connect, ...
+                  [coord(1,inletnode) coord(1,outletnode)], ...
+                  [coord(2,inletnode) coord(2,outletnode)], ...
+                  [coord(3,inletnode) coord(3,outletnode)], ...
+                  [unodal(1,inletnode) unodal(1,outletnode)], ...
+                  [unodal(2,inletnode) unodal(2,outletnode)], ...
+                  [unodal(3,inletnode) unodal(3,outletnode)], ...
+                  Scaleind, LineWidthind, MaxHeadSizeind)
+view([0, 90])
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'Inlet and Outlet velocity profile';
+
+if verbose_Profiles
+    print('InletOutletVelocityProfile','-dsvg')
+end

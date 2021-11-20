@@ -62,7 +62,6 @@ view([0, 90])
 fig = gcf;
 fig.NumberTitle = 'off';
 fig.Name = 'Inlet and Outlet velocity profile';
-
 if verbose_PrintProfiles
     print('InletOutletVelocityProfile','-dpng','-r0')
 end
@@ -121,4 +120,16 @@ if verbose_PrintProfiles
     print('NormTractionProfile','-dpng','-r0')
 end
 
+%% Line graph for norm of tractions
+Plot_LineFieldsOnVessel(coord, NormTractionNodalArranged, ...
+                               wallnodeOnlyWallLine, ...
+                               MarkerSizeind, LineWidthind, ...
+                               'Norm of traction, Pa', ...
+                               'A line along the vessel wall ($\mu$m)')
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'NormTractionLine';
+if verbose_PrintProfiles
+    print('NormTractionLine','-dpng','-r0')
+end
 

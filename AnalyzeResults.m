@@ -143,7 +143,7 @@ Plot_PatchColorFields(coord, connect, wallnodeOnlyWallLine, ...
 fig = gcf;
 fig.NumberTitle = 'off';
 fig.Name = 'NormPressureProfile';
-if verbose_Profiles
+if verbose_PrintProfiles
     print('NormPressureProfile','-dpng','-r0')
 end
 
@@ -156,7 +156,36 @@ Plot_LineFieldsOnVessel(coord, NormPressureNodalArranged, ...
 fig = gcf;
 fig.NumberTitle = 'off';
 fig.Name = 'NormPresureLine';
-if verbose_Profiles
+if verbose_PrintProfiles
     print('NormPresureLine','-dpng','-r0')
 end
 
+%% Patch graph for norm of shear
+Plot_PatchColorFields(coord, connect, wallnodeOnlyWallLine, ...
+                      coordPatchx, coordPatchy, coordPatchz, ...
+                      NormShearNodalPatch, ...
+                      MinNormShearNodalPatch, ...
+                      MaxNormShearNodalPatch, ...
+                      MarkerSizeind, TransparencyInd)
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'NormShearProfile';
+if verbose_PrintProfiles
+    print('NormShearProfile','-dpng','-r0')
+end
+
+%% Line graph for norm of shear
+Plot_LineFieldsOnVessel(coord, NormShearNodalArranged, ...
+                               wallnodeOnlyWallLine, ...
+                               MarkerSizeind, LineWidthind, ...
+                               'Norm of shear, Pa', ...
+                               'A line along the vessel wall ($\mu$m)')
+ConstantShearOnVesselSideWall = NormShearNodalArranged(wallnodeOnlyWallLine);
+AnalyticalConstantShearOnVesselSideWall = ...
+              InletPressure*(pi*TubeRadius^2)/(2*pi*TubeRadius*TubeLength)
+fig = gcf;
+fig.NumberTitle = 'off';
+fig.Name = 'NormShearLine';
+if verbose_PrintProfiles
+    print('NormShearLine','-dpng','-r0')
+end

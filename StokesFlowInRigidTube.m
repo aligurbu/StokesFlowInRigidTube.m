@@ -41,7 +41,7 @@ Telem(:,DirichletElem) = Solution(elemDofNum(:,DirichletElem));
 ModelTime = toc(Starttime)
 
 %% Analyze and post-process the results
-verbose_Profiles = false;
+verbose_PrintProfiles = false;
 
 %% Analyze the results 
 AnalyzeResults

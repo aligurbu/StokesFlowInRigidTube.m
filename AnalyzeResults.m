@@ -63,7 +63,7 @@ fig = gcf;
 fig.NumberTitle = 'off';
 fig.Name = 'Inlet and Outlet velocity profile';
 
-if verbose_Profiles
+if verbose_PrintProfiles
     print('InletOutletVelocityProfile','-dsvg')
 end
 

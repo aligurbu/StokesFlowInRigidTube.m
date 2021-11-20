@@ -27,6 +27,12 @@ Solution = SolveBEM_GMRES(coord, connect, inletelem, outletelem, ...
                           grx, grw, gtx, gtw, mu, numGaussPoints, ...
                           numNodes, numDofPerNode, ToleranceGMRES);
 
+%% Collect the solutions
+%% Collect velocities
+unodal(NeumannDofs) = Solution(NeumannDofs);
+
+%% Collect tractions
+Telem(:,DirichletElem) = Solution(elemDofNum(:,DirichletElem));
 
 %%
 ModelTime = toc(Starttime)

@@ -39,9 +39,10 @@ PlotSettings
 %% Contour graph 
 ContourSpeedInsideVessel
 
-%% Maximum velocity
-InletPressure = InletPressure*RefPressure; % Pa = N/m^2
-TubeRadius = TubeRadius*RefLength; % micron
-TubeLength = TubeLength*RefLength; % micron
-mu = mu*RefViscosity; % Pa.s = N.s/m^2
-Vmax = ((InletPressure * TubeRadius^2) / (4*mu*TubeLength))*10^(-3) %mm/s
+%% 
+% %% Maximum velocity
+% InletPressure = InletPressure*RefPressure; % Pa = N/m^2
+% TubeRadius = TubeRadius*RefLength; % micron
+% TubeLength = TubeLength*RefLength; % micron
+% mu = mu*RefViscosity; % Pa.s = N.s/m^2
+% Vmax = ((InletPressure * TubeRadius^2) / (4*mu*TubeLength))*10^(-3) %mm/s

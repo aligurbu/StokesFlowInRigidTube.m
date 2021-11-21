@@ -6,6 +6,7 @@ addpath 'Interpolation/'
 addpath 'Visualize/'
 addpath 'Models/'
 addpath 'Tests/'
+addpath 'Utilities/'
 
 verbose_Plot = false;
 verbose_Patch = false;

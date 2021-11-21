@@ -25,7 +25,7 @@ rotate3d
 axis equal
 box off
 
-if verbose_Profiles
+if verbose_PrintProfiles
     print('SpeedProfileInsideVessel','-dpng','-r0')
 end
 
@@ -56,7 +56,7 @@ rotate3d
 axis equal
 box off
 
-if verbose_Profiles
+if verbose_PrintProfiles
     print('SpeedProfileInsideVesselSideView','-dpng','-r0')
 end
 
@@ -64,12 +64,12 @@ end
 figure('Color','white')
 hold on
 Patch_Mesh(coord, connect, 0.1)
-quiver3(EvaluationPts(1,1:numelLinePts), ...
-        EvaluationPts(2,1:numelLinePts), ...
-        EvaluationPts(3,1:numelLinePts), ...
-        VelocityInsideDomain(1,1:numelLinePts), ...
-        VelocityInsideDomain(2,1:numelLinePts), ...
-        VelocityInsideDomain(3,1:numelLinePts), ...
+quiver3(EvaluationPts(1,1:numel(LinePtsX)), ...
+        EvaluationPts(2,1:numel(LinePtsX)), ...
+        EvaluationPts(3,1:numel(LinePtsX)), ...
+        VelocityInsideDomain(1,1:numel(LinePtsX)), ...
+        VelocityInsideDomain(2,1:numel(LinePtsX)), ...
+        VelocityInsideDomain(3,1:numel(LinePtsX)), ...
         0, 'b', 'LineWidth', 1.1)
 axis off
 view([0 90])
@@ -77,7 +77,7 @@ rotate3d
 axis equal
 box off
 
-if verbose_Profiles
+if verbose_PrintProfiles
     print('VelocityProfileInsideVesselSideView','-dpng','-r0')
 end
 
@@ -92,6 +92,6 @@ set(gca,'FontName','cambria math','FontSize',12)
 % axis equal
 box off
 
-if verbose_Profiles
+if verbose_PrintProfiles
     print('SpeedCenterlineVessel','-dpng','-r0')
 end

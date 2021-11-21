@@ -14,5 +14,14 @@ VelocityInsideDomain = PostProcessing(EvaluationPts, coord, connect, ...
                                       numDofPerNode, numDofPerElem);
 PostProcessingTime = toc(StartPostProcessingTime)
 
+%% Dimensionalization of the parameters
+coord = coord*RefLength; % micron
+EvaluationPts = EvaluationPts*RefLength; % micron
+LinePts = LinePts*RefLength; % micron
+CirclePtsmid = CirclePtsmid*RefLength; % micron
+CirclePtsinlet = CirclePtsinlet*RefLength; % micron
+CirclePtsoutlet = CirclePtsoutlet*RefLength; % micron
+VelocityInsideDomain = VelocityInsideDomain*RefVelocity*10^(-3); %mm/sec
+
 %% Plot Settings 
 PlotSettings

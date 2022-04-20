@@ -14,7 +14,7 @@ function x = SolveBEM_GMRES(coord, connect, inletelem, outletelem, ...
                                   grx, grw, gtx, gtw, mu, numGaussPoints, ...
                                   numNodes, numDofPerNode);
 
-x = gmres(A,b,[],ToleranceGMRES,size(A,1),@PreCondition); 
+x = gmres(A,b,[],ToleranceGMRES,size(A,1),@PreCondition);
 
 %%
 function y = PreCondition(r)

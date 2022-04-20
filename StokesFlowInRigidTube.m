@@ -1,6 +1,6 @@
-%% Direct boundary element method to analyze 
+%% Direct boundary element method to analyze
 %% the extracellular plasma flow in a rigid vessel
-%% 
+%%
 addpath 'Integration/'
 addpath 'Interpolation/'
 addpath 'Visualize/'
@@ -34,7 +34,7 @@ end
 %% Reference parameters
 ReferenceParameters
 
-%% Parameters 
+%% Parameters
 ParametersForTheAnalysis
 
 %% Field points (Gauss quadrature nodes)
@@ -62,7 +62,7 @@ Telem(:,DirichletElem) = Solution(elemDofNum(:,DirichletElem));
 ModelTime = toc(Starttime)
 
 %% Analyze and post-process the results
-%% Analyze the results 
+%% Analyze the results
 AnalyzeResults
 
 %% Post-processing: the flow in the vessel

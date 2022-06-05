@@ -15,8 +15,12 @@ numDirichletElem = length(DirichletElem);
 numInletElem = length(inletelem);
 numOutletElem = length(outletelem);
 %%
-found_mex_RegularIntegrals_GN_K = ~isempty(which('Integration/RegularIntegrals_GN_K'));
-
+found_mex_RegularIntegrals_GN_K = ...
+                      ~isempty(which('Integration/RegularIntegrals_GN_K'));
+found_mex_RegularIntegrals_GN_KN_K = ...
+                   ~isempty(which('Integration/RegularIntegrals_GN_KN_K'));
+found_mex_RegularIntegrals_KN_K = ...
+                      ~isempty(which('Integration/RegularIntegrals_KN_K'));
 parfor n = 1:numNodes
     nodeDofNum = (n-1)*numDofPerNode + (1:numDofPerNode);
     NeumannNodeind = ismember(n,NeumannNode);
@@ -41,12 +45,15 @@ parfor n = 1:numNodes
         end
         %%
         if xnodenum == 0
-%             [GN, KN, K] = RegularIntegrals_GN_KN_K_M(chi,xi,nhat,wJ, ...
-%                                                      BasisFn, mu,...
-%                                                      numDofPerNode, ...
-%                                                      numDofPerElem);
-            [GN, KN, K] = RegularIntegrals_GN_KN_K(chi,xi,nhat,wJ, ...
-                                                   BasisFn, mu);
+            if found_mex_RegularIntegrals_GN_KN_K
+                [GN, KN, K] = RegularIntegrals_GN_KN_K(chi,xi,nhat,wJ, ...
+                                                       BasisFn, mu);
+            else
+                [GN, KN, K] = RegularIntegrals_GN_KN_K_M(chi,xi,nhat,wJ, ...
+                                                         BasisFn, mu,...
+                                                         numDofPerNode, ...
+                                                         numDofPerElem);
+            end
             tempb = tempb + GN * Telem(:,m);
             elemDofind = ismember(elemDofNum(:,m),NeumannDofs);
             elemDofNumind = elemDofNum(elemDofind,m);
@@ -86,11 +93,13 @@ parfor n = 1:numNodes
         end
         %%
         if xnodenum == 0
-%             [KN, K] = RegularIntegrals_KN_K_M(chi,xi,nhat,wJ, ...
-%                                               BasisFn,numDofPerNode, ...
-%                                               numDofPerElem);
-            [KN, K] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
-
+            if found_mex_RegularIntegrals_KN_K
+                [KN, K] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
+            else
+                [KN, K] = RegularIntegrals_KN_K_M(chi,xi,nhat,wJ, ...
+                                                  BasisFn,numDofPerNode, ...
+                                                  numDofPerElem);
+            end
             elemDofind = ismember(elemDofNum(:,m),NeumannDofs);
             elemDofNumind = elemDofNum(elemDofind,m);
             tempA(:,elemDofNumind) = ...

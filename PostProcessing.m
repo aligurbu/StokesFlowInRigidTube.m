@@ -14,7 +14,10 @@ numNeumannElem = length(NeumannElem);
 UU = zeros(numPts*numDofPerNode,1);
 
 %%
-found_mex_RegularIntegrals_GN = ~isempty(which('Integration/RegularIntegrals_GN'));
+found_mex_RegularIntegrals_GN = ...
+                        ~isempty(which('Integration/RegularIntegrals_GN'));
+found_mex_RegularIntegrals_KN_K = ...
+                      ~isempty(which('Integration/RegularIntegrals_KN_K'));
 parfor mm = 1:length(inletelem)
     m = inletelem(mm);
     ind =  numGaussPoints^2*(m-1) + (1:numGaussPoints^2);
@@ -76,14 +79,23 @@ parfor mm = 1:numNeumannElem
                                                        grx, grw, gtx, gtw, ...
                                                        zetap(1), zetap(2));
             % Can we improve accuracy of K when it is nearly singular.
-            [~,K] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
+            if found_mex_RegularIntegrals_KN_K
+                [~,K] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
+            else
+                [~,K] = RegularIntegrals_KN_K_M(chi,xi,nhat,wJ, ...
+                                                BasisFn,numDofPerNode, ...
+                                                numDofPerElem)
+            end
             Nzetap = interpolate_9nodequad(zetap(1), zetap(2))';
             KN = reshape(K(:)*Nzetap, numDofPerNode, numDofPerElem) + KNi;
         else
-%             [KN, ~] = RegularIntegrals_KN_K_M(chi,xi,nhat,wJ, ...
-%                                               BasisFn,numDofPerNode, ...
-%                                               numDofPerElem)
-            [KN, ~] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
+            if found_mex_RegularIntegrals_KN_K
+                [KN, ~] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
+            else
+                [KN, ~] = RegularIntegrals_KN_K_M(chi,xi,nhat,wJ, ...
+                                                  BasisFn,numDofPerNode, ...
+                                                  numDofPerElem)    
+            end
         end
         KNNeuman(nodeDofNum, :) = KN;
     end

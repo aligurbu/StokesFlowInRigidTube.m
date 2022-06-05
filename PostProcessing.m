@@ -14,6 +14,7 @@ numNeumannElem = length(NeumannElem);
 UU = zeros(numPts*numDofPerNode,1);
 
 %%
+found_mex_RegularIntegrals_GN = ~isempty(which('Integration/RegularIntegrals_GN'));
 parfor mm = 1:length(inletelem)
     m = inletelem(mm);
     ind =  numGaussPoints^2*(m-1) + (1:numGaussPoints^2);
@@ -38,7 +39,7 @@ parfor mm = 1:length(inletelem)
                                                       grx, grw, gtx, gtw, ...
                                                       zetap(1), zetap(2));
         else
-            if ~isempty(which('Integration/RegularIntegrals_GN'))
+            if found_mex_RegularIntegrals_GN
                 GN = RegularIntegrals_GN(chi,xi,wJ,BasisFn,mu);
             else
                 GN = RegularIntegrals_GN_M(chi,xi,wJ,BasisFn,mu,...
@@ -113,7 +114,7 @@ parfor mm = 1:numDirichletElem
                                                       grx, grw, gtx, gtw, ...
                                                       zetap(1), zetap(2));
         else
-            if ~isempty(which('Integration/RegularIntegrals_GN'))
+            if found_mex_RegularIntegrals_GN
                 GN = RegularIntegrals_GN(chi,xi,wJ,BasisFn,mu);
             else
                 GN = RegularIntegrals_GN_M(chi,xi,wJ,BasisFn,mu,...

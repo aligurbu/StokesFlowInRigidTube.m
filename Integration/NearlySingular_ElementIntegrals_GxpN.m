@@ -11,7 +11,9 @@ function GxpN = NearlySingular_ElementIntegrals_GxpN(xi_e, chi, mu, ...
 % zetap2                            in intrinsic coordinates(nearest point)
 % GxpN          nearly-singular element integral
 
-if ~isempty(which('NearlySingularIntegrals_GxpN'))
+found_mex_NearlySingularIntegrals_GxpN = ...
+               ~isempty(which('Integration/NearlySingularIntegrals_GxpN'));
+if found_mex_NearlySingularIntegrals_GxpN
     if (zetap1 == -1 && zetap2 == -1) % Node 1
         % Triangle 1
         thet_min = 0;

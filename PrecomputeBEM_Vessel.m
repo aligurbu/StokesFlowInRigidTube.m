@@ -21,6 +21,8 @@ found_mex_RegularIntegrals_GN_KN_K = ...
                    ~isempty(which('Integration/RegularIntegrals_GN_KN_K'));
 found_mex_RegularIntegrals_KN_K = ...
                       ~isempty(which('Integration/RegularIntegrals_KN_K'));
+found_mex_WeaklySingularIntegrals_GxN_KxN = ...
+            ~isempty(which('Integration/WeaklySingularIntegrals_GxN_KxN'));
 parfor n = 1:numNodes
     nodeDofNum = (n-1)*numDofPerNode + (1:numDofPerNode);
     NeumannNodeind = ismember(n,NeumannNode);
@@ -65,8 +67,13 @@ parfor n = 1:numNodes
             end
         else
             xi_e = coord(:,connect(:,m));
-            [GxN, KxN] = WeaklySingular_ElementIntegrals_GxN_KxN ...
-                             (chi, xi_e, mu, xnodenum, grx, grw, gtx, gtw);
+            if found_mex_WeaklySingularIntegrals_GxN_KxN
+                [GxN, KxN] = WeaklySingular_ElementIntegrals_GxN_KxN ...
+                            (chi, xi_e, mu, xnodenum, grx, grw, gtx, gtw);
+            else
+                [GxN, KxN] = WeaklySingular_ElementIntegrals_GxN_KxN_M ...
+                            (chi, xi_e, mu, xnodenum, grx, grw, gtx, gtw);
+            end
             tempb = tempb + GxN * Telem(:,m);
             elemDofind = ismember(elemDofNum(:,m),NeumannDofs);
             elemDofNumind = elemDofNum(elemDofind,m);

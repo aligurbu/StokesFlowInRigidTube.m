@@ -5,7 +5,7 @@ function [A, b, Minv] = ...
                                   FieldPts, NormalV, Weights, BasisFn, ...
                                   Telem, ...
                                   grx, grw, gtx, gtw, mu, numGaussPoints, ...
-                                  numNodes, numDofPerNode)
+                                  numNodes, numDofPerNode, numDofPerElem)
 %% Build matrices
 bcell = cell(numNodes,1);
 Acell = cell(numNodes,1);
@@ -15,6 +15,8 @@ numDirichletElem = length(DirichletElem);
 numInletElem = length(inletelem);
 numOutletElem = length(outletelem);
 %%
+found_mex_RegularIntegrals_GN_K = ~isempty(which('Integration/RegularIntegrals_GN_K'));
+
 parfor n = 1:numNodes
     nodeDofNum = (n-1)*numDofPerNode + (1:numDofPerNode);
     NeumannNodeind = ismember(n,NeumannNode);
@@ -29,7 +31,7 @@ parfor n = 1:numNodes
         xi = FieldPts(:,ind);
         nhat = NormalV(:,ind);
         wJ = Weights(ind);
-        
+
         %% Check if the node (n) belongs to the element (m)
         %% find the position of the node in the element: xnodenum
         xnodenum = find(connect(:,m)==n);
@@ -74,7 +76,7 @@ parfor n = 1:numNodes
         xi = FieldPts(:,ind);
         nhat = NormalV(:,ind);
         wJ = Weights(ind);
-        
+
         %% Check if the node (n) belongs to the element (m)
         %% find the position of the node in the element: xnodenum
         xnodenum = find(connect(:,m)==n);
@@ -88,7 +90,7 @@ parfor n = 1:numNodes
 %                                               BasisFn,numDofPerNode, ...
 %                                               numDofPerElem);
             [KN, K] = RegularIntegrals_KN_K(chi,xi,nhat,wJ,BasisFn);
-            
+
             elemDofind = ismember(elemDofNum(:,m),NeumannDofs);
             elemDofNumind = elemDofNum(elemDofind,m);
             tempA(:,elemDofNumind) = ...
@@ -102,7 +104,7 @@ parfor n = 1:numNodes
             KxN = WeaklySingular_ElementIntegrals_KxN(chi, xi_e, ...
                                                       xnodenum, ...
                                                       grx, grw, gtx, gtw);
-            
+
             elemDofind = ismember(elemDofNum(:,m),NeumannDofs);
             elemDofNumind = elemDofNum(elemDofind,m);
             tempA(:,elemDofNumind) = ...
@@ -118,7 +120,7 @@ parfor n = 1:numNodes
         xi = FieldPts(:,ind);
         nhat = NormalV(:,ind);
         wJ = Weights(ind);
-        
+
         %% Check if the node (n) belongs to the element (m)
         %% find the position of the node in the element: xnodenum
         xnodenum = find(connect(:,m)==n);
@@ -128,10 +130,12 @@ parfor n = 1:numNodes
         end
         %%
         if xnodenum == 0
-%             [GN, K] = RegularIntegrals_GN_K_M(chi,xi,nhat,wJ,BasisFn,mu,...
-%                                               numDofPerNode,numDofPerElem);
-            [GN, K] = RegularIntegrals_GN_K(chi,xi,nhat,wJ,BasisFn,mu);
-            
+            if found_mex_RegularIntegrals_GN_K
+                [GN, K] = RegularIntegrals_GN_K(chi,xi,nhat,wJ,BasisFn,mu);
+            else
+                [GN, K] = RegularIntegrals_GN_K_M(chi,xi,nhat,wJ,BasisFn,mu,...
+                                                  numDofPerNode,numDofPerElem);
+            end
             tempA(:,elemDofNum(:,m)) = tempA(:,elemDofNum(:,m)) - GN;
             if NeumannNodeind
                 tempA(:,nodeDofNum) = tempA(:,nodeDofNum) - K;

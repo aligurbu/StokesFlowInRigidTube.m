@@ -31,16 +31,16 @@
 ## Citation
 
     @phdthesis{gurbuz2021Thesis,
-    title={Simulations of Red Blood Cell Flow by Boundary Integral Methods},
-    author={G\"urb\"uz, Ali},
-    year={2021},
-    school={State University of New York at Buffalo}
+        title={Simulations of Red Blood Cell Flow by Boundary Integral Methods},
+        author={G\"urb\"uz, Ali},
+        year={2021},
+        school={State University of New York at Buffalo}
     }
     
     @software{StokesFlowInRigidTube,
-      author       = {Ali Gurbuz},
+      author       = {Ali G\"urb\"uz},
       title        = {StokesFlowInRigidTube.m},
-      month        = feb,
+      month        = Feb,
       year         = 2023,
       publisher    = {Zenodo},
       version      = {v1.1},

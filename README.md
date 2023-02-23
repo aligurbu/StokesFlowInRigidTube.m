@@ -37,7 +37,7 @@
         school={State University of New York at Buffalo}
     }
     
-    @software{StokesFlowInRigidTube,
+    @software{StokesFlowInRigidTube_m,
       author       = {Ali G\"urb\"uz},
       title        = {StokesFlowInRigidTube.m},
       month        = Feb,

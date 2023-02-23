@@ -36,3 +36,14 @@
     year={2021},
     school={State University of New York at Buffalo}
     }
+    
+    @software{StokesFlowInRigidTube,
+      author       = {Ali Gurbuz},
+      title        = {StokesFlowInRigidTube.m},
+      month        = feb,
+      year         = 2023,
+      publisher    = {Zenodo},
+      version      = {v1.1},
+      doi          = {10.5281/zenodo.7668470},
+      url          = {https://doi.org/10.5281/zenodo.7668470}
+    }
